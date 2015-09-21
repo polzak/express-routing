@@ -27,6 +27,16 @@ adminRouter.get('/users', function(req, res){
 	res.send('I show all the users!');
 });
 
+//파라미터를 이용한 라우팅.
+adminRouter.get('/users/:name', function(req, res){
+	res.send('Hello, ' + req.params.name + '!');
+});
+
+//어드민 포스트 페이지.
+adminRouter.get('/posts', function(req, res){
+	res.send('I show all the posts!');
+});
+
 //어드민 라우터를 사용한다고 선언.
 app.use('/admin', adminRouter);
 
