@@ -7,6 +7,16 @@ app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname + '/index.html'));
 });
 
+//한꺼번에 라우팅하는 방법. app.route는 곧 express.Router()를 선언하는 것과 같다. 
+app.route('/login')//이를테면 로그인 페이지에서
+				.get(function(req, res){//GET으로 받음과 동시에
+					res.send('Here is shown the login form which is from GET method.')
+				})
+				.post(function(req, res){//POST로 보내는 것을 선언할 수 있다.
+					console.log('login POST process is being processed...');
+					res.send('From here the login information is sent through POST method.');
+				});
+
 //어드민 라우터 선언.
 var adminRouter = express.Router();
 
@@ -27,6 +37,7 @@ adminRouter.get('/users', function(req, res){
 	res.send('I show all the users!');
 });
 
+//param middleware를 사용해 name validation.
 adminRouter.param('name', function(req, res, next, name){
 	//여기에 validation 코드가 들어감.
 	console.log('We are verifying your name, dear ' + name);
