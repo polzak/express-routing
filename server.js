@@ -27,9 +27,16 @@ adminRouter.get('/users', function(req, res){
 	res.send('I show all the users!');
 });
 
+adminRouter.param('name', function(req, res, next, name){
+	//여기에 validation 코드가 들어감.
+	console.log('We are verifying your name, dear ' + name);
+	req.name = name;//validation이 완료된 name을 req에 저장. 그래서 다음의 파라미터 라우팅에서는 req.params.name 대신 req.name으로 받는다.
+	next();
+});//반드시 파라미터 라우팅보다 앞서 선언되어야 한다.
+
 //파라미터를 이용한 라우팅.
 adminRouter.get('/users/:name', function(req, res){
-	res.send('Hello, ' + req.params.name + '!');
+	res.send('Hello, ' + req.name + '!');
 });
 
 //어드민 포스트 페이지.
